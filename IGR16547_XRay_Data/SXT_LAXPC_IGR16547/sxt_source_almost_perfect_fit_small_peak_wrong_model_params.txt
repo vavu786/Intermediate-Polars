@@ -1,0 +1,58 @@
+
+Model: 1
+apply_rmf(apply_arf((32395.8184813261 * ((xstbabs.abs1 + xstbabs.abs2) * ((xsbremss.c1 + xsgaussian.g1) + xsgaussian.sxtsrc1)))))
+   Param        Type          Value          Min          Max      Units
+   -----        ----          -----          ---          ---      -----
+   abs1.nH      frozen        0.123            0       100000 10^22 atoms / cm^2
+   abs2.nH      thawed      3.86922            0       100000 10^22 atoms / cm^2
+   c1.kT        thawed       1.7383       0.0001          100        keV
+   c1.norm      thawed   0.00195267            0        1e+24           
+   g1.LineE     thawed      8.55597            0        1e+06        keV
+   g1.Sigma     thawed     0.637848            0           10        keV
+   g1.norm      thawed      1.72458            0        1e+24           
+   sxtsrc1.LineE frozen     0.596379            0        1e+06        keV
+   sxtsrc1.Sigma frozen     0.183848            0           10        keV
+   sxtsrc1.norm frozen   0.00580548            0        1e+24           
+
+Model: 2
+apply_rmf(apply_arf((244694.2658088207 * ((((powlaw1d.p1 + powlaw1d.p2) + xsgaussian.bkgg1) + xsgaussian.bkgg2) + xsgaussian.bkgg3))))
+   Param        Type          Value          Min          Max      Units
+   -----        ----          -----          ---          ---      -----
+   p1.gamma     frozen      2.54678          -10           10           
+   p1.ref       frozen            1 -3.40282e+38  3.40282e+38           
+   p1.ampl      frozen  0.000549107            0  3.40282e+38           
+   p2.gamma     frozen     0.517929          -10           10           
+   p2.ref       frozen            1 -3.40282e+38  3.40282e+38           
+   p2.ampl      frozen  0.000305062            0  3.40282e+38           
+   bkgg1.LineE  frozen         0.38            0        1e+06        keV
+   bkgg1.Sigma  frozen        0.009            0           10        keV
+   bkgg1.norm   frozen       0.0011            0        1e+24           
+   bkgg2.LineE  frozen         0.58            0        1e+06        keV
+   bkgg2.Sigma  frozen    0.0752126            0           10        keV
+   bkgg2.norm   frozen  0.000699324            0        1e+24           
+   bkgg3.LineE  frozen         0.88            0        1e+06        keV
+   bkgg3.Sigma  frozen    0.0858891            0           10        keV
+   bkgg3.norm   frozen  0.000108821            0        1e+24           
+
+Model: 3
+apply_rmf((72660.34 * ((xstbabs.abs3 * xsbremss.c2) + powlaw1d.p3)))
+   Param        Type          Value          Min          Max      Units
+   -----        ----          -----          ---          ---      -----
+   abs3.nH      thawed    0.0122335            0       100000 10^22 atoms / cm^2
+   c2.kT        thawed      18.1039       0.0001          100        keV
+   c2.norm      thawed     0.017849            0        1e+24           
+   p3.gamma     frozen    -0.785143          -10           10           
+   p3.ref       frozen            1 -3.40282e+38  3.40282e+38           
+   p3.ampl      frozen  3.55318e-05            0  3.40282e+38           
+
+Model: 4
+apply_rmf((64915.76 * (powlaw1d.p3 + powlaw1d.p4)))
+   Param        Type          Value          Min          Max      Units
+   -----        ----          -----          ---          ---      -----
+   p3.gamma     frozen    -0.785143          -10           10           
+   p3.ref       frozen            1 -3.40282e+38  3.40282e+38           
+   p3.ampl      frozen  3.55318e-05            0  3.40282e+38           
+   p4.gamma     frozen      2.17021          -10           10           
+   p4.ref       frozen            1 -3.40282e+38  3.40282e+38           
+   p4.ampl      frozen    0.0293318            0  3.40282e+38           
+
