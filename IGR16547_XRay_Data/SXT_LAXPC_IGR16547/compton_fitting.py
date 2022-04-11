@@ -38,12 +38,12 @@ bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
 # Models
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscompst.c1 + xsgaussian.g1 + xsgaussian.sxtsrc1))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscompst.c1 + xsgaussian.g1 + powlaw1d.psxt))
 
-sxtsrc1.LineE.val = 0.75
-sxtsrc1.Sigma = 0.12
-sxtsrc1.LineE.freeze()
-sxtsrc1.Sigma.freeze()
+#sxtsrc1.LineE.val = 0.75
+#sxtsrc1.Sigma = 0.12
+#sxtsrc1.LineE.freeze()
+#sxtsrc1.Sigma.freeze()
 
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
 # set_source(3, xstbabs.abs3 * (xsbremss.c2) + powlaw1d.p3)  
@@ -74,8 +74,8 @@ fit(2, 4)
 freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
 
 # Fitting each of them individually first, so they don't get stuck in local minima
-fit(1)
-fit(3)
+#fit(1)
+#fit(3)
 
 fit()
 '''
@@ -86,10 +86,10 @@ fit(1, 2, 3, 4)
 '''
 #plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
 
-sxtsrc1.LineE.thaw()
-fit()
-sxtsrc1.Sigma.thaw()
-fit()
+#sxtsrc1.LineE.thaw()
+#fit()
+#sxtsrc1.Sigma.thaw()
+#fit()
 
 plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
 

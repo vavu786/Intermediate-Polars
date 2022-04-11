@@ -35,13 +35,9 @@ bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
 # Models
-set_source(1, xstbabs.abs1 * (xsbremss.c1 + xsgaussian.g1))
-#set_source(1, (powlaw1d.srcp + xsgaussian.srcg) * xsbremss.c1 + xsgaussian.bump1)
+set_source(1, (xstbabs.abs1) * (xsbremss.c1 + xsgaussian.g1))
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
-set_source(3, xstbabs.abs3 * xstbabs.abs4 * (xsbremss.c2) + powlaw1d.laxpcp1)
-#set_source(3, (powlaw1d.srcp3 + xsgaussian.srcg3) * xsbremss.c2)
-#srcg3.LineE.val = 10
-#srcg.LineE.freeze()
+set_source(3, (xstbabs.abs3 + xstbabs.abs4) * (xsbremss.c2 + powlaw1d.laxpcp1))
 set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Systematic errors
@@ -65,18 +61,9 @@ abs1.nH.freeze()
 
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
-plot("fit", 2, "fit", 4, xlog=True)
-input("Press enter to continue: ")
 freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
 
 fit(1, 2, 3, 4)
-#plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
-'''
-counts_data = get_dep(1)
-set_filter(1, counts_data > 0)
-
-fit(1, 2, 3, 4)
-'''
 plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
 
 

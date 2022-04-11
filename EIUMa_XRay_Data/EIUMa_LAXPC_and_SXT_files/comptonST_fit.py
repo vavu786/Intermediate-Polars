@@ -74,4 +74,15 @@ for j in range(1, 5):
     input("Press enter to continue:")
 '''
 
+e0 = -3.3
+e1 = 9.16
+e2 = 0.0018
+
+p1 = 2.345
+p2 = 3.095
+p3 = 4.245
+
+def eToChannel(E):
+    return e0 + ((e1*E)*(1+(e2*E)))
+
 
