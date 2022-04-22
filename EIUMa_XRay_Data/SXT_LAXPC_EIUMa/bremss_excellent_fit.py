@@ -35,7 +35,7 @@ bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
 # Models
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * ((xsbremss.c1) + xsgaussian.g1))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + xsgaussian.g1))
 
 g1.norm = 0
 g1.norm.freeze()
@@ -61,7 +61,7 @@ abs1.nH.freeze()
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
 plot("fit", 2, "fit", 4, xlog=True)
-input("Press enter to continue: ")
+#input("Press enter to continue: ")
 freeze(p1, p2, bkgg1, bkgg2, p3, p4, p5)
 
 # Guessing some values based on one of my previous fits of all 4 together, improves the final result

@@ -35,9 +35,9 @@ bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
 # Models
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscompst.c1))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1))
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
-set_source(3, (xstbabs.abs3 + xstbabs.abs4) * (xscompst.c2 + powlaw1d.laxp1))
+set_source(3, (xstbabs.abs3 + xstbabs.abs4) * (xsbremss.c2 + powlaw1d.laxp1))
 set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 
@@ -63,7 +63,7 @@ notice_id([3, 4], 3.0, 20.0)
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
 plot("fit", 2, "fit", 4, xlog=True)
-input()
+#input()
 freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
 
 #fit(1)

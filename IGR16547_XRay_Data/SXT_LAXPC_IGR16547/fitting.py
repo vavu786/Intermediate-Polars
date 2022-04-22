@@ -41,6 +41,7 @@ sxtsrc1.LineE.val = 0.75
 sxtsrc1.Sigma = 0.12
 sxtsrc1.LineE.freeze()
 sxtsrc1.Sigma.freeze()
+#g1.norm = 0.001
 
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
 # set_source(3, xstbabs.abs3 * (xsbremss.c2) + powlaw1d.p3)  
@@ -69,7 +70,7 @@ abs1.nH.freeze()
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
 plot("fit", 2, "fit", 4, xlog=True)
-input("Press enter to continue: ")
+#input("Press enter to continue: ")
 freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
 
 # Fitting each of them individually first, so they don't get stuck in local minima
