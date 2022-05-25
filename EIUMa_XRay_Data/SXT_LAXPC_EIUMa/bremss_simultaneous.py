@@ -68,12 +68,12 @@ notice_id([3, 4], 3.0, 20.0)
 abs1.nH.val = 0.033
 abs1.nH.freeze()
 
+#guess(laxpcbkgg1)
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
 freeze(p1, p2, bkgg1, bkgg2, bkgg3, p3, p4)
 
 fit()
-
 # Move the norm up a little to move it away from 0
 #laxpcbkgg1.norm = 0.1
 
