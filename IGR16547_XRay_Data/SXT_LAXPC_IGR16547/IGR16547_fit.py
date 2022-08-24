@@ -1,5 +1,4 @@
-# To run this script, type 
-# ~$ sherpa excellent_fit.py
+# Usage: $ sherpa filename.py
 
 # Load files
 load_pha(1, "IGR16547_SXT_spectrum.pha")
@@ -34,17 +33,19 @@ bkgg3.LineE = 0.88
 bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
-# Models
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + xsgaussian.g1 + xsgaussian.sxtsrc1))
+# Background models
+set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
+set_source(4, powlaw1d.p3 + powlaw1d.p4)
+
+# Source models
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + xsgaussian.sxtsrc1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
 
 sxtsrc1.LineE.val = 0.75
 sxtsrc1.Sigma = 0.12
 sxtsrc1.LineE.freeze()
 sxtsrc1.Sigma.freeze()
 
-set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
-set_source(3, xstbabs.abs3 * (xsbremss.c2) + powlaw1d.p3)
-set_source(4, powlaw1d.p3 + powlaw1d.p4)
+set_source(3, xstbabs.abs3 * (xsbremss.c2 + p3 + p4)) # If I add a powerlaw here, the temperature changes from 99 to 4!
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
@@ -79,7 +80,7 @@ fit(3)
 #plot("fit", 3)
 #input("Press enter to continue: ")
 
-fit(1, 2, 3, 4)
+fit()
 #plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
 '''
 counts_data = get_dep(1)
