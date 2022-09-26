@@ -45,7 +45,7 @@ sxtsrc1.Sigma = 0.12
 sxtsrc1.LineE.freeze()
 sxtsrc1.Sigma.freeze()
 
-set_source(3, xstbabs.abs3 * (xsbremss.c2 + p3 + p4)) # If I add a powerlaw here, the temperature changes from 99 to 4!
+set_source(3, xstbabs.abs3 * (xsbremss.c2 + p3 + p4 + powlaw1d.laxpcsrc1)) # If I add a powerlaw here, the temperature changes from 99 to 4!
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
