@@ -86,20 +86,22 @@ fit()
 
 # ___________________Confidence Countours_____________________ #
 
-mkdir Code_Conf_Conts/
+#mkdir Code_Conf_Conts/
 
 # No linking first
+'''
 reg_proj(c1.kT, abs2.nH, min=[1.4, 1.5], max=[3.0, 4.5], nloop=[40, 40], sigma=[1, 1.6])
 plt.savefig("Code_Conf_Conts/c1.kT_and_abs2.nH_nloop=40.png")
 
 reg_proj(c1.kT, c2.kT, min=[1.4, 9.0], max=[3.0, 100], nloop=[40, 40], sigma=[1, 1.6])
 plt.savefig("Code_Conf_Conts/c1.kT_and_c2.kT_nloop=40.png")
-
-reg_proj(c2.kT, abs3.nH, nloop=[20, 20], sigma=[1, 1.6]) # keep at nloop=20
+'''
+reg_proj(c2.kT, abs3.nH, min=[9.0, 0], max=[100, 0.5], nloop=[20, 20], sigma=[1, 1.6]) # keep at nloop=20
 plt.savefig("Code_Conf_Conts/c2.kT_and_abs3.nH_nloop=20.png")
-
-reg_proj(abs2.nH, abs3.nH, min=[1.4, 1.5], max=[3.0, 4.5], nloop=[20, 20], sigma=[1, 1.6]) # keep at nloop=20
+'''
+reg_proj(abs2.nH, abs3.nH, min=[1.4, 0], max=[5.0, 0.5], nloop=[20, 20], sigma=[1, 1.6]) # keep at nloop=20
 plt.savefig("Code_Conf_Conts/abs2.nH_and_abs3.nH_nloop=20.png")
+
 
 # Linked columns
 
@@ -114,7 +116,7 @@ plt.savefig("Code_Conf_Conts/lc1.kT_and_abs2.nH_nloop=40.png")
 
 reg_proj(c1.kT, c2.kT, min=[1.0, 0.5], max=[3.0, 20.0], nloop=[40, 40], sigma=[1, 1.6])
 plt.savefig("Code_Conf_Conts/lc1.kT_and_c2.kT_nloop=40.png")
-
+'''
 #"/Images/Confidence\ Contours/Sigma_1_and_1.6/Non-linked\ columns/"
 #"/Images/Confidence\ Contours/Sigma_1_and_1.6/Linked\ columns/"
 

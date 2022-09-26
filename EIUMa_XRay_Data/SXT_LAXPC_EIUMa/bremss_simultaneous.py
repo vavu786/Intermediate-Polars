@@ -44,8 +44,8 @@ set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
 set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Source models
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2))
-set_source(3, (xstbabs.abs3) * (xsbremss.c2 + laxpcbkgg1 + p3 + p4))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
 
 # XSPEC model cevmkl doesn't seem to work
 #set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2))
