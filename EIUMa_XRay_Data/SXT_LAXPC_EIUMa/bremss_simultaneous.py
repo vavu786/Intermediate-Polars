@@ -44,22 +44,26 @@ set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
 set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Source
+"""
 model_choice = input("Which model?\n1. xsbremss\n2. cevmkl\nEnter a number: ")
 
 while model_choice not in ["1", "2"]:
 	model_choice = input("Which model?\n1. xsbremss\n2. cevmkl\nEnter a number: ")
 	 
 model_choice = int(model_choice)
-
+"""
 # XSPEC bremss
-if model_choice == 1:
-	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-	set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
+#if model_choice == 1:
+#	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+#	set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
 
 # XSPEC cevmkl
-if model_choice == 2:
-	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + xsgaussian.g1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-	set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
+#if model_choice == 2:
+
+create_model_component("xsgaussian", "g1")
+
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
 
 laxpcbkgg1.LineE = 6.5
 laxpcbkgg1.LineE.freeze()
