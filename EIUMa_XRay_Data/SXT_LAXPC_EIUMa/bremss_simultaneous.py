@@ -1,5 +1,5 @@
 # To run this script, type 
-# ~$ sherpa excellent_fit.py
+# ~$ sherpa filename.py
 
 # Load files
 load_pha(1, "EIUma_spectrum.pha")
@@ -34,11 +34,6 @@ bkgg3.LineE = 0.88
 bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
-# Gaussian for Fe line at 6.5 keV
-create_model_component("xsgaussian", "laxpcbkgg1")
-laxpcbkgg1.LineE = 7.0
-laxpcbkgg1.LineE.freeze()
-
 # Background
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
 set_source(4, powlaw1d.p3 + powlaw1d.p4)
@@ -60,13 +55,8 @@ model_choice = int(model_choice)
 # XSPEC cevmkl
 #if model_choice == 2:
 
-create_model_component("xsgaussian", "g1")
-
 set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
 set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
-
-laxpcbkgg1.LineE = 6.5
-laxpcbkgg1.LineE.freeze()
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
@@ -82,19 +72,11 @@ notice_id([3, 4], 3.0, 20.0)
 abs1.nH.val = 0.033
 abs1.nH.freeze()
 
-#guess(laxpcbkgg1)
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
 freeze(p1, p2, bkgg1, bkgg2, bkgg3, p3, p4)
 
-fit()
-# Move the norm up a little to move it away from 0
-#laxpcbkgg1.norm = 0.1
-
-# Thaw the LineE for the LAXPC gaussian
-#laxpcbkgg1.LineE.thaw()
-
 # Re-fit
-#fit()
+fit()
 plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
 
