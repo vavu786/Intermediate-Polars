@@ -4,14 +4,10 @@
 # Load files
 load_pha(1, "EIUma_spectrum.pha")
 load_pha(2, "SkyBkg_comb_EL3p5_Cl_Rd16p0_v01.fits")
-load_pha(3, "lxp2level2.spec")
-load_pha(4, "lxp2level2back_shifted.spec")
 load_arf(1, "sxt_pc_excl00_v04_20190608.arf")
 load_arf(2, "sxt_pc_excl00_v04_20190608.arf")
 load_rmf(1, "sxt_pc_mat_g0to12.rmf")
 load_rmf(2, "sxt_pc_mat_g0to12.rmf")
-load_rmf(3, "lx20cshm06L1v1.0.rmf")
-load_rmf(4, "lx20cshm06L1v1.0.rmf")
 
 # First gaussian: compensates for the large spike at around 0.38 keV
 create_model_component("xsgaussian", "bkgg1")
@@ -36,47 +32,39 @@ bkgg3.LineE.freeze()
 
 # Background
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
-set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Source
-"""
-model_choice = input("Which model?\n1. xsbremss\n2. cevmkl\nEnter a number: ")
-
-while model_choice not in ["1", "2"]:
-	model_choice = input("Which model?\n1. xsbremss\n2. cevmkl\nEnter a number: ")
-	 
-model_choice = int(model_choice)
-"""
-# XSPEC bremss
-#if model_choice == 1:
-#	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-#	set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
-
-# XSPEC cevmkl
-#if model_choice == 2:
-
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
 set_syserror(2, 0.02, fractional=True)
-set_syserror(3, 0.03, fractional=True)
-set_syserror(4, 0.03, fractional=True)
 
 # Change of domains
-notice_id([1, 2], 0.31, 5) # previously 5.0
-notice_id([3, 4], 3.0, 20.0)
+notice_id([1, 2], 0.31, 5.0) # previously 5.0
 
 # Freezing column density value
 abs1.nH.val = 0.033
 abs1.nH.freeze()
 
 # Fitting backgrounds first, then fold over to the sources
-fit(2, 4)
-freeze(p1, p2, bkgg1, bkgg2, bkgg3, p3, p4)
+fit(2)
+freeze(p1, p2, bkgg1, bkgg2, bkgg3)
 
 # Re-fit
+
+#guess(c1)
+#guess(abs2)
+
+#c1.kT = 52
+#c1.kT.freeze()
+#abs2.nH = 1.7
+
+
 fit()
-plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
+plot("fit", 1, "fit", 2)
+
+#for i in range(1, 5):
+#	plot("fit", i)
+#	plt.savefig("
 

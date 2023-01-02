@@ -69,29 +69,28 @@ abs1.nH.freeze()
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
 plot("fit", 2, "fit", 4, xlog=True)
-input("Press enter to continue: ")
+
 freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
 
+guess(c1)
+guess(c2)
+guess(abs2)
+guess(abs3)
+
+
 fit(1)
-#plot("fit", 1)
-#input("Press enter to continue: ")
-
 fit(3)
-#plot("fit", 3)
-#input("Press enter to continue: ")
 
+c = int(input("1. fit-link-fit. 2. link-fit "))
+if c == 1:
+	fit()
+
+link(abs3.nH, abs2.nH)
 fit()
-#plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
-'''
-counts_data = get_dep(1)
-set_filter(1, counts_data > 0)
-
-fit(1, 2, 3, 4)
-'''
 
 plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
+
 '''
-freeze(abs1, abs2, c1, g1)
 sxtsrc1.LineE.val = 0.596379
 sxtsrc1.Sigma = 0.183848
 sxtsrc1.norm.val = 0.00580548

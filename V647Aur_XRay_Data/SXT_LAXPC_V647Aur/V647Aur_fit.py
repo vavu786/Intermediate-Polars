@@ -40,7 +40,7 @@ set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Models
 set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-set_source(3, (xstbabs.abs3) * (xsbremss.c2 + powlaw1d.laxp1 + p3 + p4))
+set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))# + powlaw1d.laxp1 + p3 + p4))
 
 
 # Systematic errors

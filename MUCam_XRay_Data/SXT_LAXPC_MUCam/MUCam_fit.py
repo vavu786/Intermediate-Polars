@@ -42,11 +42,13 @@ set_source(4, powlaw1d.p3 + powlaw1d.p4)
 #powlaw1d.srcp1 +
 #+ xsgaussian.bump1
 set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + xsgaussian.bump1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-bump1.LineE = 0.4
-bump1.LineE.freeze()
+#bump1.LineE = 0.4
+#bump1.LineE.freeze()
+bump1.norm=0
+freeze(bump1)
 
 # powlaw1d.laxpcp1 + 
-set_source(3, (xstbabs.abs3) * (xsbremss.c2 + powlaw1d.laxpcp1 + p3 + p4))
+set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)

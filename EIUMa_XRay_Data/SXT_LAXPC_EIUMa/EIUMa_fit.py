@@ -1,11 +1,11 @@
 # To run this script, type 
-# ~$ sherpa excellent_fit.py
+# ~$ sherpa filename.py
 
 # Load files
-load_pha(1, "IGR16547_SXT_spectrum.pha")
+load_pha(1, "EIUma_spectrum.pha")
 load_pha(2, "SkyBkg_comb_EL3p5_Cl_Rd16p0_v01.fits")
 load_pha(3, "lxp2level2.spec")
-load_pha(4, "lxp2level2back.spec")
+load_pha(4, "lxp2level2back_shifted.spec")
 load_arf(1, "sxt_pc_excl00_v04_20190608.arf")
 load_arf(2, "sxt_pc_excl00_v04_20190608.arf")
 load_rmf(1, "sxt_pc_mat_g0to12.rmf")
@@ -34,19 +34,18 @@ bkgg3.LineE = 0.88
 bkgg3.norm = 0.011
 bkgg3.LineE.freeze()
 
-# Models
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + xsgaussian.g1 + xsgaussian.sxtsrc1))
-
-sxtsrc1.LineE.val = 0.75
-sxtsrc1.Sigma = 0.12
-sxtsrc1.LineE.freeze()
-sxtsrc1.Sigma.freeze()
-#g1.norm = 0.001
-
+# Background
 set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
-# set_source(3, xstbabs.abs3 * (xsbremss.c2) + powlaw1d.p3)  
-set_source(3, (xstbabs.abs3 + xstbabs.abs4) * (xsbremss.c2 + xsgaussian.g2 + powlaw1d.plax))
 set_source(4, powlaw1d.p3 + powlaw1d.p4)
+
+# Source
+
+#set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscemekl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+#set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
+set_source(3, (xstbabs.abs3) * (xscemekl.c2 + p3 + p4))
+#fe_line.LineE = 6.5
+#fe_line.LineE.freeze()
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
@@ -55,34 +54,32 @@ set_syserror(3, 0.03, fractional=True)
 set_syserror(4, 0.03, fractional=True)
 
 # Change of domains
-notice_id([1, 2], 0.31, 5.0)
+notice_id([1, 2], 0.31, 5.0) # previously 5.0
 notice_id([3, 4], 3.0, 20.0)
 
 # Freezing column density value
-abs1.nH.val = 0.123
+abs1.nH.val = 0.033
 abs1.nH.freeze()
-
-# Fix gaussian at 6.5
-# g1.LineE.val = 6.5
-# g1.Sigma.val = 0.0
-# g1.LineE.freeze()
 
 # Fitting backgrounds first, then fold over to the sources
 fit(2, 4)
-plot("fit", 2, "fit", 4, xlog=True)
-#input("Press enter to continue: ")
-freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
+freeze(p1, p2, bkgg1, bkgg2, bkgg3, p3, p4)
 
-# Fitting each of them individually first, so they don't get stuck in local minima
-fit(1)
-fit(3)
+# Re-fit
 
-fit(1, 2, 3, 4)
-'''
-counts_data = get_dep(1)
-set_filter(1, counts_data > 0)
+guess(c1)
+guess(c2)
+guess(abs2)
+guess(abs3)
 
-fit(1, 2, 3, 4)
-'''
+c = int(input("1. fit-link-fit or 2. link-fit"))
+if c == 1:
+	fit()
+link(abs3.nH, abs2.nH)
+fit()
 plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
+
+#for i in range(1, 5):
+#	plot("fit", i)
+#	plt.savefig("
 
