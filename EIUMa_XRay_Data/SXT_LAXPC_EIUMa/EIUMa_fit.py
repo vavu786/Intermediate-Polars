@@ -40,8 +40,8 @@ set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Source
 
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsmekal.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-set_source(3, (xstbabs.abs3) * (xsmekal.c2 + p3 + p4))
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
