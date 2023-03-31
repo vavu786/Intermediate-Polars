@@ -35,8 +35,6 @@ set_source(2, powlaw1d.p1 + powlaw1d.p2 + bkgg1 + bkgg2 + bkgg3)
 
 # Source
 set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-c1.switch=0
-
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)

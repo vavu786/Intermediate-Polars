@@ -11,7 +11,7 @@ load_rmf(2, "lx20cshm06L1v1.0.rmf")
 set_source(2, powlaw1d.p1 + powlaw1d.p2)
 
 # Source
-set_source(1, (xstbabs.abs1) * (xsbremss.c1 + p1 + p2))
+set_source(1, (xstbabs.abs1) * (xscevmkl.c1 + p1 + p2))
 
 # Systematic errors
 set_syserror(1, 0.03, fractional=True)
