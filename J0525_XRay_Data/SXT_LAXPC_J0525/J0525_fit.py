@@ -42,6 +42,11 @@ set_source(4, powlaw1d.p3 + powlaw1d.p4)
 set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + xsgaussian.g1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
 set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
 
+g1.norm = 0
+freeze(g1)
+guess(c1)
+guess(c2)
+
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
 set_syserror(2, 0.02, fractional=True)
@@ -65,6 +70,10 @@ abs1.nH.freeze()
 fit(2, 4)
 freeze(p1, p2, p3, p4, bkgg1, bkgg2, bkgg3)
 
+fit()
+link(abs3.nH, abs2.nH)
+fit()
+c1.kT = 0.19
 fit()
 plot("fit", 1, "fit", 2, "fit", 3, "fit", 4)
 

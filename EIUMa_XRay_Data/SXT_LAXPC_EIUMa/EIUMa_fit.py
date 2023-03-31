@@ -40,12 +40,8 @@ set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Source
 
-#set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscemekl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-#set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
-set_source(3, (xstbabs.abs3) * (xscemekl.c2 + p3 + p4))
-#fe_line.LineE = 6.5
-#fe_line.LineE.freeze()
+set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsmekal.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+set_source(3, (xstbabs.abs3) * (xsmekal.c2 + p3 + p4))
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
@@ -61,7 +57,19 @@ notice_id([3, 4], 3.0, 20.0)
 abs1.nH.val = 0.033
 abs1.nH.freeze()
 
+'''
+set_analysis(1, quantity="wave", factor=2)
+set_analysis(2, quantity="wave", factor=2)
+set_analysis(3, quantity="wave", factor=2)
+set_analysis(4, quantity="wave", factor=2)
+'''
+
 # Fitting backgrounds first, then fold over to the sources
+guess(p1)
+guess(p2)
+guess(p3)
+guess(p4)
+
 fit(2, 4)
 freeze(p1, p2, bkgg1, bkgg2, bkgg3, p3, p4)
 
