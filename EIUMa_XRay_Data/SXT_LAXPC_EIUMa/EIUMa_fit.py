@@ -1,11 +1,13 @@
 # To run this script, type 
 # ~$ sherpa filename.py
 
+remzeros = ""
+
 # Load files
-load_pha(1, "EIUma_spectrum.pha")
-load_pha(2, "SkyBkg_comb_EL3p5_Cl_Rd16p0_v01.fits")
-load_pha(3, "lxp2level2.spec")
-load_pha(4, "lxp2level2back_shifted.spec")
+load_pha(1, "EIUma_spectrum" + remzeros + ".pha")
+load_pha(2, "SkyBkg_comb_EL3p5_Cl_Rd16p0_v01" + remzeros + ".fits")
+load_pha(3, "lxp2level2" + remzeros + ".spec")
+load_pha(4, "lxp2level2back_shifted" + remzeros + ".spec")
 load_arf(1, "sxt_pc_excl00_v04_20190608.arf")
 load_arf(2, "sxt_pc_excl00_v04_20190608.arf")
 load_rmf(1, "sxt_pc_mat_g0to12.rmf")
@@ -40,8 +42,26 @@ set_source(4, powlaw1d.p3 + powlaw1d.p4)
 
 # Source
 
-set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
-set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
+#set_source(1, (xszxipab.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+#set_source(3, (xszxipab.abs3) * (xsbremss.c2 + p3 + p4))
+
+modelname = "c"
+
+if modelname == "c":
+	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xscevmkl.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+	set_source(3, (xstbabs.abs3) * (xscevmkl.c2 + p3 + p4))
+	
+	c1.Tmax.min = 0.03
+	c2.Tmax.min = 0.03
+
+elif modelname == "b":
+	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsbremss.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+	set_source(3, (xstbabs.abs3) * (xsbremss.c2 + p3 + p4))
+
+elif modelname == "m":
+	set_source(1, (xstbabs.abs1 + xstbabs.abs2) * (xsmekal.c1 + p1 + p2 + bkgg1 + bkgg2 + bkgg3))
+	set_source(3, (xstbabs.abs3) * (xsmekal.c2 + p3 + p4))
+
 
 # Systematic errors
 set_syserror(1, 0.02, fractional=True)
@@ -56,6 +76,10 @@ notice_id([3, 4], 3.0, 20.0)
 # Freezing column density value
 abs1.nH.val = 0.033
 abs1.nH.freeze()
+
+#abs1.nHmin = 0.033
+#abs1.nHmax = 0.033
+#freeze(abs1)
 
 '''
 set_analysis(1, quantity="wave", factor=2)
